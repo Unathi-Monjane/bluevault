@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlueVault Login</title>
+  <style>
+    body {
+      background-color: #0d0d1a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h2 {
+      color: #0db7ed;
+    }
+    form {
+      background: #111;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      background-color: #0db7ed;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .switch {
+      margin-top: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Welcome to BlueVault</h2>
+  <form id="authForm">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+    <div class="switch">
+      <a href="#" id="toggle">Don't have an account? Register</a>
+    </div>
+  </form>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+      getAuth, createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { 
+      getFirestore, doc, getDoc 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ✅ Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAG8KNE0SEfUfOPQdR0LE4xHvJmpUYyobk",
+      authDomain: "bluevault-streaming.firebaseapp.com",
+      projectId: "bluevault-streaming",
+      storageBucket: "bluevault-streaming.appspot.com",
+      messagingSenderId: "378518812073",
+      appId: "1:378518812073:web:7e7b653ef7843ebad1c0b8",
+      measurementId: "G-4JFF1PFBQD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('authForm');
+    const toggle = document.getElementById('toggle');
+    let isLogin = true;
+
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      document.querySelector('button').textContent = isLogin ? 'Login' : 'Register';
+      toggle.textContent = isLogin ? "Don't have an account? Register" : "Already have an account? Login";
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        if (isLogin) {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+          // ✅ Check for admin access
+          const token = await userCredential.user.getIdTokenResult();
+          if (token.claims.admin) {
+            location.href = "admin.html";
+          } else {
+            alert("You are not an admin.");
+            location.href = "index.html";
+          }
+
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+          alert("Account created. Now login.");
+          isLogin = true;
+          toggle.click();
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+  </script>
+</body>
+</html>
+

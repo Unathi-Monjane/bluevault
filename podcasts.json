@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Podcast and Chill",
+    "image": "assets/chill.jpg",
+    "poster": "images/chill.jpg",
+    "description": "MacG and the team dive deep into South African entertainment, relationships, and culture with laughs and real talk.",
+    "host": "MacG",
+    "category": "Podcast",
+    "genre": ["Entertainment", "Talk", "Culture"],
+    "episodes": 100
+  },
+  {
+    "title": "Popcorn and Cheese",
+    "image": "assets/popcorn.jpg",
+    "poster": "images/popcorn.jpg",
+    "description": "The funniest duo on the web discusses trending topics and roasts everyone in the industry.",
+    "host": "Robot Boii & Mpho Popps",
+    "category": "Podcast",
+    "genre": ["Comedy", "Lifestyle"],
+    "episodes": 50
+  },
+  {
+    "title": "Musa on the Mic",
+    "image": "assets/musa.jpg",
+    "poster": "images/musa.jpg",
+    "description": "Musa digs into the personal journeys of creatives, entrepreneurs, and dreamers from the continent.",
+    "host": "Musa Keys",
+    "category": "Podcast",
+    "genre": ["Interviews", "Business", "Motivation"],
+    "episodes": 30
+  },
+  {
+    "title": "The Hustlers Corner",
+    "image": "assets/hustlers.jpg",
+    "poster": "images/hustlers.jpg",
+    "description": "DJ Sbu speaks with African trailblazers on money, hustle, and vision.",
+    "host": "DJ Sbu",
+    "category": "Podcast",
+    "genre": ["Business", "Success"],
+    "episodes": 70
+  },
+  {
+    "title": "Life with Lebang",
+    "image": "assets/lebang.jpg",
+    "poster": "images/lebang.jpg",
+    "description": "Lebang shares her journey through motherhood, relationships, and real-life lessons in South Africa.",
+    "host": "Lebang Kgosana",
+    "category": "Podcast",
+    "genre": ["Parenting", "Life Advice", "Wellness"],
+    "episodes": 40
+  }
+]

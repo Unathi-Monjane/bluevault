@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Stitch - The Experiment 626",
+    "image": "assets/stitch.jpg",
+    "trailer": "videos/stitch-trailer.mp4",
+    "poster": "images/stitch.jpg",
+    "description": "Follow the story of Stitch, a genetically engineered creature created for chaos, who learns about friendship, family, and love on the Hawaiian islands.",
+    "category": "Movies",
+    "genre": ["Animation", "Adventure", "Family"],
+    "year": 2025,
+    "duration": "1h 40min"
+  },
+  {
+    "title": "Happy Gilmore 2 - The Return",
+    "image": "assets/happy-gilmore.jpg",
+    "trailer": "videos/happygilmore2-trailer.mp4",
+    "poster": "images/happy-gilmore.jpg",
+    "description": "Happy Gilmore returns to the ice rink for an unexpected sequel filled with laughs, hockey, and heart.",
+    "category": "Movies",
+    "genre": ["Comedy", "Sports"],
+    "year": 2025,
+    "duration": "1h 45min"
+  },
+  {
+    "title": "M3GAN 2.0 - The Next Level",
+    "image": "assets/m3gan.jpg",
+    "trailer": "videos/m3gan2-trailer.mp4",
+    "poster": "images/m3gan.jpg",
+    "description": "The upgraded AI doll M3GAN returns with more tricks, terror, and a mysterious new agenda.",
+    "category": "Movies",
+    "genre": ["Horror", "Sci-Fi", "Thriller"],
+    "year": 2025,
+    "duration": "1h 38min"
+  },
+  {
+    "title": "Madea's Destination",
+    "image": "assets/madea.jpg",
+    "trailer": "videos/madeas-destination-trailer.mp4",
+    "poster": "images/madea.jpg",
+    "description": "Madea takes a hilarious trip to a new town, bringing chaos and laughter along the way.",
+    "category": "Movies",
+    "genre": ["Comedy", "Drama"],
+    "year": 2025,
+    "duration": "1h 55min"
+  },
+  {
+    "title": "Ballerina - Grace in Motion",
+    "image": "assets/ballerina.jpg",
+    "trailer": "videos/ballerina-trailer.mp4",
+    "poster": "images/ballerina.jpg",
+    "description": "A young ballerina struggles to find her place in the competitive world of dance.",
+    "category": "Movies",
+    "genre": ["Drama", "Music", "Coming-of-age"],
+    "year": 2025,
+    "duration": "2h 3min"
+  },
+  {
+    "title": "The Accountant 2",
+    "image": "assets/accountant.jpg",
+    "trailer": "videos/accountant2-trailer.mp4",
+    "poster": "images/accountant.jpg",
+    "description": "The Accountant returns for a high-stakes mission involving finance, espionage, and action.",
+    "category": "Movies",
+    "genre": ["Action", "Crime", "Thriller"],
+    "year": 2025,
+    "duration": "2h 10min"
+  }
+]

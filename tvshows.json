@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Ironheart",
+    "image": "assets/ironheart.jpg",
+    "poster": "images/ironheart.jpg",
+    "description": "Riri Williams builds her own suit of iron and takes on powerful enemies while navigating college life.",
+    "category": "TV Show",
+    "genre": ["Action", "Drama", "Superhero"],
+    "year": 2025,
+    "seasons": 1,
+    "episodes": 8
+  },
+  {
+    "title": "MobLand",
+    "image": "assets/mobland.jpg",
+    "poster": "images/mobland.jpg",
+    "description": "In the dark alleys of crime and loyalty, MobLand dives into the gritty world of underground mafias.",
+    "category": "TV Show",
+    "genre": ["Crime", "Drama", "Thriller"],
+    "year": 2025,
+    "seasons": 2,
+    "episodes": 16
+  },
+  {
+    "title": "Wednesday",
+    "image": "assets/wednesday.jpg",
+    "poster": "images/wednesday.jpg",
+    "description": "Follow Wednesday Addams as she solves mysteries at Nevermore Academy with her dark wit.",
+    "category": "TV Show",
+    "genre": ["Mystery", "Fantasy", "Teen"],
+    "year": 2024,
+    "seasons": 1,
+    "episodes": 8
+  },
+  {
+    "title": "Dragon Balls Daima",
+    "image": "assets/daima.jpg",
+    "poster": "images/daima.jpg",
+    "description": "A new chapter in the Dragon Ball universe, full of powerful transformations and shocking surprises.",
+    "category": "TV Show",
+    "genre": ["Action", "Anime", "Adventure"],
+    "year": 2025,
+    "seasons": 1,
+    "episodes": 10
+  },
+  {
+    "title": "Knuckles",
+    "image": "assets/knuckles.jpg",
+    "poster": "images/knuckles.jpg",
+    "description": "Knuckles embarks on his own journey filled with challenges, enemies, and hilarious chaos.",
+    "category": "TV Show",
+    "genre": ["Adventure", "Comedy", "Animation"],
+    "year": 2025,
+    "seasons": 1,
+    "episodes": 6
+  }
+]

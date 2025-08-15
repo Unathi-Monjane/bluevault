@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlueVault | Login / Signup</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #0d0d1a, #000);
+      font-family: 'Segoe UI', sans-serif;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .auth-box {
+      background: #111;
+      padding: 30px 40px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 0 20px #0db7edaa;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0db7ed;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: #222;
+      color: #eee;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0db7ed;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .switch-text {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    .switch-text a {
+      color: #0db7ed;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .error-message {
+      color: #f44336;
+      margin-top: 8px;
+      text-align: center;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-box">
+    <h2 id="form-title">Login to BlueVault</h2>
+    <form id="authForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required minlength="6" />
+      <button type="submit" id="submitBtn">Login</button>
+    </form>
+    <div class="error-message" id="errorMsg"></div>
+    <div class="switch-text" id="switchText">
+      Don't have an account? <a id="toggleLink">Sign Up</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // Firebase config (use your own config here)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAG8KNE0SEfUfOPQdR0LE4xHvJmpUYyobk",
+      authDomain: "bluevault-streaming.firebaseapp.com",
+      projectId: "bluevault-streaming",
+      storageBucket: "bluevault-streaming.firebasestorage.app",
+      messagingSenderId: "378518812073",
+      appId: "1:378518812073:web:7e7b653ef7843ebad1c0b8",
+      measurementId: "G-4JFF1PFBQD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const authForm = document.getElementById('authForm');
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submitBtn');
+    const toggleLink = document.getElementById('toggleLink');
+    const switchText = document.getElementById('switchText');
+    const errorMsg = document.getElementById('errorMsg');
+
+    let isLogin = true;
+
+    toggleLink.addEventListener('click', () => {
+      isLogin = !isLogin;
+      if (isLogin) {
+        formTitle.textContent = "Login to BlueVault";
+        submitBtn.textContent = "Login";
+        switchText.innerHTML = `Don't have an account? <a id="toggleLink">Sign Up</a>`;
+      } else {
+        formTitle.textContent = "Create a BlueVault Account";
+        submitBtn.textContent = "Sign Up";
+        switchText.innerHTML = `Already have an account? <a id="toggleLink">Login</a>`;
+      }
+      errorMsg.textContent = "";
+      // Reassign event listener because innerHTML replaced toggleLink
+      document.getElementById('toggleLink').addEventListener('click', () => toggleLink.click());
+    });
+
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.textContent = "";
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      try {
+        if (isLogin) {
+          // Login flow
+          await signInWithEmailAndPassword(auth, email, password);
+          alert("Login successful! Redirecting...");
+          // TODO: Redirect to profile selector or homepage
+          window.location.href = 'profile.html'; 
+        } else {
+          // Signup flow
+          await createUserWithEmailAndPassword(auth, email, password);
+          alert("Account created successfully! Please login.");
+          isLogin = true;
+          toggleLink.click(); // Switch to login mode
+        }
+      } catch (error) {
+        // Show friendly error messages
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMsg.textContent = "This email is already in use.";
+            break;
+          case 'auth/invalid-email':
+            errorMsg.textContent = "Invalid email address.";
+            break;
+          case 'auth/user-not-found':
+          case 'auth/wrong-password':
+            errorMsg.textContent = "Incorrect email or password.";
+            break;
+          case 'auth/weak-password':
+            errorMsg.textContent = "Password should be at least 6 characters.";
+            break;
+          default:
+            errorMsg.textContent = error.message;
+        }
+      }
+    });
+
+    // Optional: Check if user is already logged in
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        // User is signed in, redirect to profile page
+        window.location.href = 'profile.html';
+      }
+    });
+  </script>
+</body>
+</html>
+

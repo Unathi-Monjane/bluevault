@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlueVault - Watch Movie</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Additional styles for watch page */
+    body {
+      background-color: #0a0f1a;
+      color: #e0e6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .watch-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 2rem auto;
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+    .video-player-section {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #0e2bff99;
+      background: black;
+    }
+    .video-info {
+      margin-top: 1rem;
+    }
+    .video-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #3399ff;
+    }
+    .video-description {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #b0c7ffcc;
+    }
+    .related-videos {
+      flex: 1;
+      max-width: 320px;
+      background-color: #121b2f;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #0e2bff99;
+      overflow-y: auto;
+      height: fit-content;
+      max-height: 600px;
+    }
+    .related-videos h3 {
+      color: #3399ff;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border-bottom: 1px solid #3399ff44;
+      padding-bottom: 0.5rem;
+    }
+    .related-video-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      padding: 0.25rem;
+    }
+    .related-video-item:hover {
+      background-color: #1c2a5a;
+    }
+    .related-video-thumb {
+      width: 80px;
+      height: 45px;
+      border-radius: 4px;
+      object-fit: cover;
+      margin-right: 0.75rem;
+      box-shadow: 0 0 8px #0e2bffcc;
+      transition: transform 0.3s ease;
+    }
+    .related-video-item:hover .related-video-thumb {
+      transform: scale(1.05);
+    }
+    .related-video-title {
+      font-size: 0.9rem;
+      color: #aad4ff;
+      font-weight: 600;
+      flex: 1;
+    }
+    @media (max-width: 900px) {
+      .watch-container {
+        flex-direction: column;
+      }
+      .related-videos {
+        max-width: 100%;
+        margin-top: 2rem;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<select id="language">
+  <option value="en">🇬🇧 English</option>
+  <option value="xh">🇿🇦 isiXhosa</option>
+  <option value="af">🇿🇦 Afrikaans</option>
+  <option value="fr">🇫🇷 French</option>
+</select>
+  <main class="watch-container">
+    <section class="video-player-section">
+      <video id="main-video" controls poster="images/stitch.jpg" preload="metadata">
+        <source src="videos/stitch-trailer.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-info">
+        <h1 class="video-title">Stitch - The Experiment 626</h1>
+        <p class="video-description">
+          Follow the story of Stitch, a genetically engineered creature created for chaos, who learns about friendship, family, and love on the Hawaiian islands.
+        </p>
+      </div>
+    </section>
+
+    <aside class="related-videos">
+      <h3>Related Videos</h3>
+
+      <div class="related-video-item" data-video-src="videos/happygilmore2-trailer.mp4" data-poster="images/happy-gilmore.jpg" data-title="Happy Gilmore 2 - The Return">
+        <img class="related-video-thumb" src="images/happy-gilmore.jpg" alt="Happy Gilmore 2 Thumbnail" />
+        <div class="related-video-title">Happy Gilmore 2 - The Return</div>
+      </div>
+
+      <div class="related-video-item" data-video-src="videos/m3gan2-trailer.mp4" data-poster="images/m3gan.jpg" data-title="M3GAN 2.0 - The Next Level">
+        <img class="related-video-thumb" src="images/m3gan.jpg" alt="M3GAN 2.0 Thumbnail" />
+        <div class="related-video-title">M3GAN 2.0 - The Next Level</div>
+      </div>
+
+      <div class="related-video-item" data-video-src="videos/madeas-destination-trailer.mp4" data-poster="images/madea.jpg" data-title="Madea's Destination">
+        <img class="related-video-thumb" src="images/madea.jpg" alt="Madea's Destination Thumbnail" />
+        <div class="related-video-title">Madea's Destination</div>
+      </div>
+
+      <div class="related-video-item" data-video-src="videos/ballerina-trailer.mp4" data-poster="images/ballerina.jpg" data-title="Ballerina - Grace in Motion">
+        <img class="related-video-thumb" src="images/ballerina.jpg" alt="Ballerina Thumbnail" />
+        <div class="related-video-title">Ballerina - Grace in Motion</div>
+      </div>
+
+      <div class="related-video-item" data-video-src="videos/accountant2-trailer.mp4" data-poster="images/accountant.jpg" data-title="The Accountant 2">
+        <img class="related-video-thumb" src="images/accountant.jpg" alt="The Accountant 2 Thumbnail" />
+        <div class="related-video-title">The Accountant 2</div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Get video elements
+    const mainVideo = document.getElementById('main-video');
+    const relatedItems = document.querySelectorAll('.related-video-item');
+    const videoTitle = document.querySelector('.video-title');
+    const videoDescription = document.querySelector('.video-description');
+
+    // Video descriptions map (could be moved to a JSON or object in future)
+    const videoDetails = {
+      'Stitch - The Experiment 626': 'Follow the story of Stitch, a genetically engineered creature created for chaos, who learns about friendship, family, and love on the Hawaiian islands.',
+      'Happy Gilmore 2 - The Return': 'Happy Gilmore returns to the ice rink for an unexpected sequel filled with laughs, hockey, and heart.',
+      'M3GAN 2.0 - The Next Level': 'The upgraded AI doll M3GAN returns with more tricks, terror, and a mysterious new agenda.',
+      "Madea's Destination": "Madea takes a hilarious trip to a new town, bringing chaos and laughter along the way.",
+      'Ballerina - Grace in Motion': 'A young ballerina struggles to find her place in the competitive world of dance.',
+      'The Accountant 2': 'The Accountant returns for a high-stakes mission involving finance, espionage, and action.'
+    };
+
+    relatedItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const newSrc = item.getAttribute('data-video-src');
+        const newPoster = item.getAttribute('data-poster');
+        const newTitle = item.getAttribute('data-title');
+        // Change video source & poster
+        mainVideo.src = newSrc;
+        mainVideo.poster = newPoster;
+        mainVideo.load();
+        mainVideo.play();
+
+        // Update title and description
+        videoTitle.textContent = newTitle;
+        videoDescription.textContent = videoDetails[newTitle] || '';
+        
+        // Scroll to top (optional)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

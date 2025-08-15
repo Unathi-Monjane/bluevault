@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlueVault - Release Calendar</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0a0f1a;
+      color: #e0e6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      color: #0db7ed;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+    .release-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .release-card {
+      background-color: #121b2f;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #0db7ed99;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      color: #aad4ff;
+    }
+    .release-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0db7edcc;
+    }
+    .release-poster {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-bottom: 3px solid #0db7ed;
+    }
+    .release-info {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .release-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #3399ff;
+    }
+    .release-date {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      color: #88b7ffcc;
+    }
+    .countdown {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0db7ed;
+      text-align: center;
+      padding: 0.5rem 0;
+      background: #0a1b3f;
+      border-radius: 8px;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      .release-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Upcoming Releases</h1>
+  <div class="release-list" id="releaseList">
+    <!-- JS injects release cards here -->
+  </div>
+
+  <script>
+    // Sample upcoming release data
+    const releases = [
+      {
+        title: "Ironheart",
+        poster: "images/ironheart.jpg",
+        releaseDate: "2025-09-15T00:00:00",
+      },
+      {
+        title: "MobLand",
+        poster: "images/mobland.jpg",
+        releaseDate: "2025-10-01T00:00:00",
+      },
+      {
+        title: "Wednesday Season 2",
+        poster: "images/wednesday.jpg",
+        releaseDate: "2025-11-10T00:00:00",
+      },
+      {
+        title: "Dragon Balls Daima",
+        poster: "images/daima.jpg",
+        releaseDate: "2025-12-05T00:00:00",
+      },
+      {
+        title: "Knuckles",
+        poster: "images/knuckles.jpg",
+        releaseDate: "2026-01-20T00:00:00",
+      }
+    ];
+
+    const releaseList = document.getElementById('releaseList');
+
+    function createCard(release) {
+      const card = document.createElement('div');
+      card.className = 'release-card';
+
+      card.innerHTML = `
+        <img src="${release.poster}" alt="${release.title} Poster" class="release-poster" />
+        <div class="release-info">
+          <div>
+            <div class="release-title">${release.title}</div>
+            <div class="release-date">Release Date: ${new Date(release.releaseDate).toLocaleDateString()}</div>
+          </div>
+          <div class="countdown" data-date="${release.releaseDate}">Loading...</div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    // Render all cards
+    releases.forEach(release => {
+      releaseList.appendChild(createCard(release));
+    });
+
+    // Update countdown timers every second
+    function updateCountdowns() {
+      const countdownEls = document.querySelectorAll('.countdown');
+      countdownEls.forEach(el => {
+        const releaseDate = new Date(el.getAttribute('data-date'));
+        const now = new Date();
+        const diff = releaseDate - now;
+
+        if (diff <= 0) {
+          el.textContent = "Available Now!";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      });
+    }
+
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns(); // Initial call
+
+  </script>
+</body>
+</html>

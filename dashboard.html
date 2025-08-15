@@ -1,0 +1,39 @@
+<h1>Welcome to BlueVault Dashboard</h1>
+<div id="profileName"></div>
+<div id="subscriptionStatus">Checking subscription...</div>
+<div id="watchHistory"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const app = initializeApp({/* your config */});
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const profileNameDiv = document.getElementById("profileName");
+  const watchHistoryDiv = document.getElementById("watchHistory");
+  const subStatusDiv = document.getElementById("subscriptionStatus");
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return (window.location.href = "auth.html");
+
+    const profile = JSON.parse(localStorage.getItem("selectedProfile"));
+    profileNameDiv.textContent = `Logged in as: ${profile.name}`;
+
+    // ✅ Show subscription status
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    const subStatus = userDoc.data()?.subscriptionStatus || "Inactive";
+    subStatusDiv.textContent = `Subscription: ${subStatus}`;
+
+    // ✅ Show watch history
+    const historySnap = await getDocs(collection(db, "users", user.uid, "watchHistory"));
+    historySnap.forEach(doc => {
+      const data = doc.data();
+      const p = document.createElement("p");
+      p.textContent = `${data.title} - Watched on ${new Date(data.date.seconds * 1000).toLocaleDateString()}`;
+      watchHistoryDiv.appendChild(p);
+    });
+  });
+</script>

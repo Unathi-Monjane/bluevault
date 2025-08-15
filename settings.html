@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings | BlueVault</title>
+  <style>
+    body {
+      background-color: #0d0d1a;
+      color: #e0e6f8;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      color: #0db7ed;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      background: #0db7ed;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .danger {
+      background: #ff4444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Settings</h2>
+
+  <form id="passwordForm">
+    <label for="newPassword">Change Password</label>
+    <input type="password" id="newPassword" required placeholder="Enter new password" />
+    <button type="submit">Update Password</button>
+  </form>
+
+  <button id="manageProfiles">Manage Profiles</button>
+  <button class="danger" id="deleteAccount">Delete My Account</button>
+  <div id="status"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, updatePassword, deleteUser, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAG8KNE0SEfUfOPQdR0LE4xHvJmpUYyobk",
+      authDomain: "bluevault-streaming.firebaseapp.com",
+      projectId: "bluevault-streaming",
+      storageBucket: "bluevault-streaming.appspot.com",
+      messagingSenderId: "378518812073",
+      appId: "1:378518812073:web:7e7b653ef7843ebad1c0b8",
+      measurementId: "G-4JFF1PFBQD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const status = document.getElementById('status');
+    const passwordForm = document.getElementById('passwordForm');
+    const deleteBtn = document.getElementById('deleteAccount');
+    const manageProfilesBtn = document.getElementById('manageProfiles');
+
+    let currentUser = null;
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        currentUser = user;
+      } else {
+        window.location.href = "auth.html";
+      }
+    });
+
+    passwordForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const newPassword = document.getElementById('newPassword').value;
+      if (!currentUser) return;
+      try {
+        await updatePassword(currentUser, newPassword);
+        status.textContent = "✅ Password updated!";
+      } catch (error) {
+        console.error(error);
+        status.textContent = "❌ Error updating password.";
+      }
+    });
+
+    deleteBtn.addEventListener('click', async () => {
+      if (!currentUser) return;
+      if (confirm("Are you sure you want to delete your account?")) {
+        try {
+          await deleteUser(currentUser);
+          alert("Account deleted.");
+          window.location.href = "auth.html";
+        } catch (error) {
+          console.error(error);
+          alert("Error deleting account. Please re-authenticate.");
+        }
+      }
+    });
+
+    manageProfilesBtn.addEventListener('click', () => {
+      window.location.href = "profiles.html";
+    });
+  </script>
+</body>
+</html>
